@@ -1,4 +1,4 @@
-package com.example.day2
+package com.example.menu
 
 import io.flutter.embedding.android.FlutterActivity
 
