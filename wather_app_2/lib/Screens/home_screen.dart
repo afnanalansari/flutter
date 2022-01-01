@@ -41,23 +41,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 var response = await http.get(url);
                 var objectBody = jsonDecode(response.body);
                 var tempCity = objectBody['current']['temperature'];
-                
+                var cityName = objectBody['location']['name'];
+                //another way --> var cityName = _textController.text;
+
                 if(response.statusCode == 200)
                 {
                 Navigator.push(
                   context, 
                   MaterialPageRoute(builder: (context) => 
                     WeatherScreen(
-                      city:_textController.text,
+                      city:cityName,
                       temp: tempCity
                           )
                         )
                       );
                       setState(() {});
+                      _textController.clear(); //to clear input field after sending
                 }
                 }catch (e)
                 {
-                  //snack
+                  //snackBar
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Error',
+                      style: TextStyle(fontSize: 20),
+                      ),
+                    backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               }, 
               child: Row(
